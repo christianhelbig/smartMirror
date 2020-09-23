@@ -1,0 +1,317 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap");
+.row {
+  margin: unset;
+}
+
+/* Disabling padding from columns, since we are changing these in .box class */
+.col-md-4, .col-md-6, .col-md-8, .col-md-12 {
+  padding: unset;
+}
+
+/* Vertical centering */
+.v-col {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  flex-flow: column;
+}
+
+@font-face {
+  font-family: "color-emoji";
+  src: local("Apple Color Emoji"), local("Segoe UI Emoji"), local("Segoe UI Symbol"), local("Noto Color Emoji");
+}
+body {
+  color: white;
+  font-family: "Roboto", sans-serif, color-emoji;
+  font-weight: 300;
+  font-size: 1vw;
+}
+
+h1 {
+  font-size: 2vw;
+  font-weight: 400;
+}
+
+.main-wrapper {
+  background: black;
+  background-size: cover;
+  height: 100vh;
+  padding: 5vh;
+  width: 100vw;
+}
+
+.box {
+  padding: 10px;
+}
+
+.box-inside {
+  padding: 10px 0;
+}
+.box-inside:first-child {
+  padding-top: 0;
+}
+.box-inside:last-child {
+  padding-bottom: 0;
+}
+
+.box-content {
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 100%;
+  padding: 1vw;
+  width: 100%;
+  border: 1px solid white;
+}
+
+.center {
+  display: inline-block;
+  text-align: center;
+}
+
+.time {
+  font-size: 3.5vw;
+  text-align: center;
+}
+.time .divider {
+  margin: 0 -0.8vw;
+}
+.time .second {
+  font-size: 1.5vw;
+  margin-left: -0.8vw;
+}
+
+.date {
+  text-align: center;
+}
+.date .day {
+  float: left;
+  font-size: 3.5vw;
+  line-height: 3.5vw;
+  margin-right: 0.2vw;
+  width: auto;
+}
+.date .month {
+  clear: right;
+  float: left;
+  font-size: 1.2vw;
+  height: 3.5vw;
+  line-height: 1.7vw;
+  text-align: left;
+  width: auto;
+}
+
+.current-weather {
+  text-align: center;
+}
+.current-weather .current-temp {
+  font-size: 3.5vw;
+  line-height: 3.5vw;
+}
+.current-weather .sunrise, .current-weather .sunset {
+  font-size: 1.2vw;
+  line-height: 1.5vw;
+  margin: 5px 0;
+}
+
+.weather-icon {
+  filter: brightness(10);
+  width: 40%;
+  margin-bottom: 10px;
+}
+
+.sun-icon {
+  filter: brightness(10);
+  width: 1vw;
+  margin-top: -0.25vw;
+}
+
+.weather-forecast .weekday {
+  margin-bottom: 10px;
+}
+.weather-forecast .weather-icon {
+  height: 2.5vw;
+  width: 2.5vw;
+}
+
+.col-cal-7 {
+  position: relative;
+  width: 100%;
+  padding: 10px 5px;
+  -ms-flex: 0 0 14.28%;
+  flex: 0 0 14.28%;
+  max-width: 14.28%;
+  text-align: center;
+}
+
+.calendar .dayname {
+  text-align: center;
+  margin-bottom: 5px;
+}
+.calendar .day {
+  display: inline-block;
+  text-align: center;
+  font-size: 2vw;
+  line-height: initial;
+  padding: 5px;
+}
+.calendar .active {
+  background: rgba(255, 59, 48, 0.3);
+}
+.calendar .active .day {
+  background: #ff3b30;
+  border-radius: 100%;
+}
+.calendar .cal-event {
+  background: rgba(0, 132, 255, 0.5);
+  margin: 10px 0;
+  padding: 5px;
+}
+.calendar .cal-event .time {
+  font-size: 0.8vw;
+  text-align: left;
+  font-weight: bold;
+}
+.calendar .cal-event .name {
+  font-size: 0.8vw;
+  text-align: left;
+  font-weight: 400;
+  word-break: break-word;
+}
+
+.room-temp {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  text-align: center;
+}
+.room-temp .headline {
+  font-size: 1vw;
+}
+.room-temp .temp-wrapper {
+  font-size: 3.5vw;
+}
+
+.plants {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 1vw;
+}
+.plants .name {
+  width: 50%;
+  float: left;
+  clear: left;
+}
+.plants .status {
+  width: 50%;
+  float: left;
+  clear: right;
+  font-weight: 500;
+}
+.plants .ok {
+  color: #30d158;
+}
+.plants .water {
+  color: #ff9f0a;
+}
+
+.tasks h1 {
+  margin-bottom: 1vw;
+}
+.tasks ul {
+  list-style: none;
+  padding-left: 1vw;
+}
+.tasks ul li:before {
+  content: "◯";
+  padding-right: 10px;
+  font-weight: bold;
+}
+.tasks .task {
+  line-height: 2vw;
+}
+
+.public-transport .lines, .public-transport .directions, .public-transport .departureTimes {
+  display: inline-block;
+}
+.public-transport .line {
+  text-align: center;
+  padding: 1px 4px;
+  margin-bottom: 5px;
+}
+.public-transport .direction, .public-transport .departureTime {
+  padding: 1px 4px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+}
+.public-transport .departureTime {
+  margin-left: 20px;
+}
+.public-transport .u1 {
+  background-color: #7DAD4C;
+}
+.public-transport .u2 {
+  background-color: #DA421E;
+}
+.public-transport .u3 {
+  background-color: #007A5B;
+}
+.public-transport .u4 {
+  background-color: #F0D722;
+}
+.public-transport .u5 {
+  background-color: #7E5330;
+}
+.public-transport .u55 {
+  background-color: #7E5330;
+}
+.public-transport .u6 {
+  background-color: #8C6DAB;
+}
+.public-transport .u7 {
+  background-color: #528DBA;
+}
+.public-transport .u8 {
+  background-color: #224F86;
+}
+.public-transport .u9 {
+  background-color: #F3791D;
+}
+.public-transport .u {
+  background-color: #115D91;
+}
+.public-transport .bus {
+  background-color: #95276E;
+  border-radius: 100%;
+}
+.public-transport .tram {
+  background-color: #BE1414;
+}
+.public-transport .ferry {
+  background-color: #528DBA;
+}
+.public-transport .blink {
+  animation: blinker 1.2s linear infinite;
+}
+@keyframes blinker {
+  1% {
+    opacity: 1;
+  }
+  2% {
+    opacity: 0;
+  }
+  49% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  99% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/*# sourceMappingURL=main.css.map */

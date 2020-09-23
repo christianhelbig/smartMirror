@@ -1,0 +1,408 @@
+// Variables
+$background-url: "../assets/images/IMG_2602.png";
+$box-background: rgba(0, 0, 0, .6);
+
+$calendar-active-color: #ff3b30;
+$calendar-event-background: rgba(0, 132, 255, 0.5);
+
+$font-size-big: 3.5vw;
+$font-size-medium: 2vw;
+$font-size-small: 1vw;
+
+$calendar-font-small: 0.8vw;
+$calendar-font-tiny: 0.8vw;
+$calendar-active-background: rgba(255, 59, 48, 0.3);
+
+$status-ok: #30d158;
+$status-error: #ff9f0a;
+
+// Bootstrap grid
+
+.row {
+  margin: unset;
+}
+
+/* Disabling padding from columns, since we are changing these in .box class */
+.col-md-4, .col-md-6, .col-md-8, .col-md-12 {
+  padding: unset;
+}
+
+/* Vertical centering */
+.v-col {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  flex-flow: column;
+}
+
+// Fonts
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap');
+@font-face {
+  font-family: "color-emoji";
+  src: local("Apple Color Emoji"),
+  local("Segoe UI Emoji"),
+  local("Segoe UI Symbol"),
+  local("Noto Color Emoji");
+}
+
+
+// General
+
+body {
+  color: white;
+  font-family: 'Roboto', sans-serif, color-emoji;
+  font-weight: 300;
+  font-size: 1vw;
+}
+
+h1 {
+  font-size: $font-size-medium;
+  font-weight: 400;
+}
+
+.main-wrapper {
+  // background: url($background-url) no-repeat center;
+  background: black;
+  background-size: cover;
+  height: 100vh;
+  padding: 5vh;
+  width: 100vw;
+}
+
+.box {
+  padding: 10px;
+}
+
+.box-inside {
+  padding: 10px 0;
+
+  &:first-child {
+    padding-top: 0;
+  }
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+}
+
+.box-content {
+  background-color: $box-background;
+  height: 100%;
+  padding: 1vw;
+  width: 100%;
+  //
+  border: 1px solid white;
+}
+
+.center {
+  display: inline-block;
+  text-align: center;
+}
+
+// Time
+
+.time {
+  font-size: 3.5vw;
+  text-align: center;
+
+  .divider {
+    margin: 0 -0.8vw;
+  }
+
+  .second {
+    font-size: 1.5vw;
+    margin-left: -0.8vw;
+  }
+}
+
+// Date
+
+.date {
+  text-align: center;
+
+  .day {
+    float: left;
+    font-size: $font-size-big;
+    line-height: $font-size-big;
+    margin-right: .2vw;
+    width: auto;
+  }
+
+  .month {
+    clear: right;
+    float: left;
+    font-size: 1.2vw;
+    height: $font-size-big;
+    line-height: 1.7vw;
+    text-align: left;
+    width: auto;
+  }
+}
+
+// Current weather
+
+.current-weather {
+  text-align: center;
+
+  .current-temp {
+    font-size: $font-size-big;
+    line-height: $font-size-big;
+  }
+
+  .sunrise, .sunset {
+    font-size: $font-size-small + .2;
+    line-height: $font-size-small + .5;
+    margin: 5px 0;
+  }
+}
+
+.weather-icon {
+  filter: brightness(10);
+  width: 40%;
+  margin-bottom: 10px;
+}
+
+.sun-icon {
+  filter: brightness(10);
+  width: $font-size-small;
+  margin-top: -0.25vw;
+}
+
+// Forecast
+.weather-forecast {
+  .weekday {
+    margin-bottom: 10px;
+  }
+
+  .weather-icon {
+    height: 2.5vw;
+    width: 2.5vw;
+  }
+}
+
+// Calendar
+.col-cal-7 {
+  position: relative;
+  width: 100%;
+  padding: 10px 5px;
+  -ms-flex: 0 0 14.28%;
+  flex: 0 0 14.28%;
+  max-width: 14.28%;
+  text-align: center;
+}
+
+.calendar {
+  .dayname {
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  .day {
+    display: inline-block;
+    text-align: center;
+    font-size: $font-size-medium;
+    line-height: initial;
+    padding: 5px;
+  }
+
+  .active {
+    background: $calendar-active-background;
+
+
+    .day {
+      background: $calendar-active-color;
+      border-radius: 100%;
+    }
+  }
+
+  .cal-event {
+    background: $calendar-event-background;
+    margin: 10px 0;
+    padding: 5px;
+
+    .time {
+      font-size: $calendar-font-tiny;
+      text-align: left;
+      font-weight: bold;
+    }
+
+    .name {
+      font-size: $calendar-font-small;
+      text-align: left;
+      font-weight: 400;
+      word-break: break-word;
+    }
+  }
+}
+
+// Smart home
+.room-temp {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  text-align: center;
+
+  .headline {
+    font-size: $font-size-small;
+  }
+
+  .temp-wrapper {
+    font-size: $font-size-big;
+  }
+}
+
+.plants {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: $font-size-small;
+
+  .name {
+    width: 50%;
+    float: left;
+    clear: left;
+  }
+
+  .status {
+    width: 50%;
+    float: left;
+    clear: right;
+    font-weight: 500;
+  }
+
+  .ok {
+    color: $status-ok;
+  }
+
+  .water {
+    color: $status-error;
+  }
+}
+
+// TO DO LIST
+.tasks {
+  h1 {
+    margin-bottom: $font-size-small;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: $font-size-small;
+
+    li:before {
+      content: '◯';
+      padding-right: 10px;
+      font-weight: bold;
+    }
+  }
+
+  .task {
+    line-height: $font-size-medium;
+  }
+}
+
+// Public Transport departures
+.public-transport {
+  .lines, .directions, .departureTimes {
+    display: inline-block;
+  }
+
+  .line {
+    text-align: center;
+    padding: 1px 4px;
+    margin-bottom: 5px;
+  }
+
+  .direction, .departureTime {
+    padding: 1px 4px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+  }
+
+  .departureTime {
+    margin-left: 20px;
+  }
+
+  .u1 {
+    background-color: #7DAD4C;
+  }
+
+  .u2 {
+    background-color: #DA421E;
+  }
+
+  .u3 {
+    background-color: #007A5B;
+  }
+
+  .u4 {
+    background-color: #F0D722;
+  }
+
+  .u5 {
+    background-color: #7E5330;
+  }
+
+  .u55 {
+    background-color: #7E5330;
+  }
+
+  .u6 {
+    background-color: #8C6DAB;
+  }
+
+  .u7 {
+    background-color: #528DBA;
+  }
+
+  .u8 {
+    background-color: #224F86;
+  }
+
+  .u9 {
+    background-color: #F3791D;
+  }
+
+  .u {
+    background-color: #115D91;
+  }
+
+  .bus {
+    background-color: #95276E;
+    border-radius: 100%;
+  }
+
+  .tram {
+    background-color: #BE1414;
+  }
+
+  .ferry {
+    background-color: #528DBA;
+  }
+
+  .blink {
+    animation: blinker 1.2s linear infinite;
+  }
+
+  @keyframes blinker {
+    1% {
+      opacity: 1;
+    }
+    2% {
+      opacity: 0;
+    }
+    49% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    99% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+}

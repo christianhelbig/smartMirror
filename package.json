@@ -1,0 +1,26 @@
+{
+  "name": "smartmirror",
+  "version": "1.0.0",
+  "description": "NodeJS based software for my smart mirror, which shows time, weather, calendar, public transport",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/christianhelbig/smartMirror.git"
+  },
+  "author": "Christian Helbig",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/christianhelbig/smartMirror/issues"
+  },
+  "homepage": "https://github.com/christianhelbig/smartMirror#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "ical": "^0.6.0",
+    "request": "^2.88.2",
+    "socket.io": "^2.3.0"
+  }
+}
