@@ -7,8 +7,59 @@ var weekdays = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Frei
 timeAndDate();
 initCalendar();
 
-// Getting current weather information
+/**
+ * Time / Date
+ */
+function timeAndDate() {
+    var d = new Date();
+
+    // Update time every second
+    var update = setInterval(function(){
+        d = new Date();
+
+        var hour = d.getHours();
+        var minute = d.getMinutes();
+        var second = d.getSeconds();
+
+        var weekday = d.getDay();
+        var day = d.getDate();
+        var month = d.getMonth();
+        var year = d.getFullYear();
+
+        jQuery(".time .hour").each(function(){ this.innerText = hour; });
+        jQuery(".time .minute").each(function(){
+            if (minute < 10) {
+                this.innerText = "0" + minute;
+            } else {
+                this.innerText = minute;
+            }
+        });
+        jQuery(".time .second").each(function(){
+            if (second < 10) {
+                this.innerText = "0" + second;
+            } else {
+                this.innerText = second;
+            }
+        });
+
+        jQuery(".date .dayname").each(function(){ this.innerText = weekdays[weekday]; });
+        jQuery(".date .day").each(function(){ this.innerText = day; });
+        jQuery(".date .monthname").each(function(){ this.innerText = monthNames[month]; });
+        jQuery(".date .year").each(function(){ this.innerText = year; });
+
+        // Update calendar dates at midnight
+        if (hour === 0 && minute === 0 && second === 0) {
+            initCalendar();
+            socket.emit('calendar_data');
+        }
+    }, 1000)
+}
+
+/**
+ * Current weather
+ */
 socket.on('current_weather', function(data) {
+    // Process weather data (DOM manipulation)
     jQuery(".current-weather .weather-location").each(function(){ this.innerText = data.name; });
     jQuery(".current-weather .weather-description").each(function(){ this.innerText = data.description; });
     jQuery(".current-weather .weather-icon").each(function(){
@@ -51,7 +102,9 @@ socket.on('current_weather', function(data) {
     });
 });
 
-// Get forecast for next 4 days
+/**
+ * Weather forecast
+ */
 socket.on('weather_forecast', function(data) {
     // display min max temperature of whole day in current weather panel
     jQuery(".current-weather .minmax-temp .min").each(function(){ this.innerText = data[0].min; });
@@ -83,6 +136,9 @@ socket.on('weather_forecast', function(data) {
     })
 });
 
+/**
+ * Calendar
+ */
 socket.on('calendar_data', function(data) {
     let calendarDays = jQuery('.calendar .elements .col-cal-7');
     let calendarHeaderDays = jQuery('.calendar .header .col-cal-7 .day');
@@ -120,52 +176,6 @@ socket.on('calendar_data', function(data) {
                 '<div class="name">' + data[i].summary + '</div>' +
                 '</div>'
             )
-        }
-    }
-});
-
-socket.on('reminders_data', function(data) {
-    let todo = jQuery('.tasks ul').eq(0);
-
-    // remove all old reminders
-    jQuery(todo).empty();
-
-    // create task elements
-    // <li class="task">Test Task</li>
-    for(let i = 0; i < data.data.length; i++) {
-        jQuery(todo).append('<li class="task">' + data.data[i].title + '</li>')
-    }
-});
-
-socket.on('sensor_data', function(data) {
-    jQuery('.room-temp .temp').each(function(){ this.innerText = data[0].temp; });
-});
-
-socket.on('current_departures', function(data) {
-    console.log(data);
-    // add name
-    jQuery('.public-transport #stop').text(data.stationName);
-
-    // delete old entries
-    let lines = jQuery('.public-transport #departures .lines').empty();
-    let directions = jQuery('.public-transport #departures .directions').empty();
-    let times = jQuery('.public-transport #departures .departureTimes').empty();
-
-    // add data
-    for (let i = 0; i < data.data.length; i++) {
-        // line name
-        jQuery(lines).append('<div class="line ' + data.data[i].lineID + ' ' + data.data[i].mode + '">' + data.data[i].lineName + '</div>')
-        // direction
-        if (data.data[i].departsIn === 0) {
-            jQuery(directions).append('<div class="direction blink">' + data.data[i].direction + '</div>')
-        } else {
-            jQuery(directions).append('<div class="direction">' + data.data[i].direction + '</div>')
-        }
-        // departure
-        if (data.data[i].departsIn === 0) {
-            jQuery(times).append('<div class="departureTime">&nbsp;</div>')
-        } else {
-            jQuery(times).append('<div class="departureTime">' + data.data[i].departsIn + ' min</div>')
         }
     }
 });
@@ -220,47 +230,57 @@ function initCalendar() {
     jQuery(today_head).find('.day').eq(0).css('width', jQuery(today_head).find('.day').innerHeight());
 }
 
+/**
+ * Reminders
+ */
+socket.on('reminders_data', function(data) {
+    let todo = jQuery('.tasks ul').eq(0);
 
-function timeAndDate() {
-    var d = new Date();
+    // remove all old reminders
+    jQuery(todo).empty();
 
-    var update = setInterval(function(){
-        d = new Date();
+    // create task elements
+    // <li class="task">Test Task</li>
+    for(let i = 0; i < data.data.length; i++) {
+        jQuery(todo).append('<li class="task">' + data.data[i].title + '</li>')
+    }
+});
 
-        var hour = d.getHours();
-        var minute = d.getMinutes();
-        var second = d.getSeconds();
+/**
+ * Sensors
+ */
+socket.on('sensor_data', function(data) {
+    jQuery('.room-temp .temp').each(function(){ this.innerText = data[0].temp; });
+});
 
-        var weekday = d.getDay();
-        var day = d.getDate();
-        var month = d.getMonth();
-        var year = d.getFullYear();
+/**
+ * Public transport
+ */
+socket.on('current_departures', function(data) {
+    console.log(data);
+    // add name
+    jQuery('.public-transport #stop').text(data.stationName);
 
-        jQuery(".time .hour").each(function(){ this.innerText = hour; });
-        jQuery(".time .minute").each(function(){
-            if (minute < 10) {
-                this.innerText = "0" + minute;
-            } else {
-                this.innerText = minute;
-            }
-        });
-        jQuery(".time .second").each(function(){
-            if (second < 10) {
-                this.innerText = "0" + second;
-            } else {
-                this.innerText = second;
-            }
-        });
+    // delete old entries
+    let lines = jQuery('.public-transport #departures .lines').empty();
+    let directions = jQuery('.public-transport #departures .directions').empty();
+    let times = jQuery('.public-transport #departures .departureTimes').empty();
 
-        jQuery(".date .dayname").each(function(){ this.innerText = weekdays[weekday]; });
-        jQuery(".date .day").each(function(){ this.innerText = day; });
-        jQuery(".date .monthname").each(function(){ this.innerText = monthNames[month]; });
-        jQuery(".date .year").each(function(){ this.innerText = year; });
-
-        // update calendar dates at midnight
-        if (hour === 0 && minute === 0 && second === 0) {
-            initCalendar();
-            socket.emit('calendar_data');
+    // add data
+    for (let i = 0; i < data.data.length; i++) {
+        // line name
+        jQuery(lines).append('<div class="line ' + data.data[i].lineID + ' ' + data.data[i].mode + '">' + data.data[i].lineName + '</div>')
+        // direction
+        if (data.data[i].departsIn === 0) {
+            jQuery(directions).append('<div class="direction blink">' + data.data[i].direction + '</div>')
+        } else {
+            jQuery(directions).append('<div class="direction">' + data.data[i].direction + '</div>')
         }
-    }, 1000)
-}
+        // departure
+        if (data.data[i].departsIn === 0) {
+            jQuery(times).append('<div class="departureTime">&nbsp;</div>')
+        } else {
+            jQuery(times).append('<div class="departureTime">' + data.data[i].departsIn + ' min</div>')
+        }
+    }
+});

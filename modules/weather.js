@@ -1,23 +1,23 @@
-const request = require('request');
-const fs = require('fs');
+const request = require('request')
+const fs = require('fs')
 
 function getCurrentWeatherData(cityID, apiKey, lang = "de", unit = 'metric') {
     request('https://api.openweathermap.org/data/2.5/weather?id=' + cityID + '&appid=' + apiKey + '&lang=' + lang + '&units=' + unit, { json: true }, (err, res, body) => {
-        if (err) { console.log(err); }
+        if (err) { console.log(err) }
 
-        // add time stamp to data
-        body.timestamp = Date.now();
+        // Add time stamp to data
+        body.timestamp = Date.now()
 
-        // broadcast
-        broadcastCurrentWeather(body);
+        // Broadcast
+        broadcastCurrentWeather(body)
 
-        // Save current api call to file
+        // Save current response to file
         try {
             fs.writeFileSync('./current_data/current_weather.json', JSON.stringify(body))
         } catch (err) {
-            console.error(err);
+            console.error(err)
         }
-    });
+    })
 }
 
 function broadcastCurrentWeather(data) {
@@ -30,18 +30,18 @@ function broadcastCurrentWeather(data) {
         max: Math.round(data.main.temp_max),
         sunrise: data.sys.sunrise,
         sunset: data.sys.sunset
-    };
+    }
 
-    // sends current weather data to all sockets
-    io.sockets.emit('current_weather', relevantData);
-    console.log("[" + new Date().toISOString() + "] " + "Broadcast current weather");
+    // Sends current weather data to all sockets
+    io.sockets.emit('current_weather', relevantData)
+    console.log("[" + new Date().toISOString() + "] " + "Broadcast current weather")
 }
 
 function sendStoredCurrentWeather(socket) {
     // Read weather data from file
     try {
-        let data = fs.readFileSync('./current_data/current_weather.json');
-        data = JSON.parse(data);
+        let data = fs.readFileSync('./current_data/current_weather.json')
+        data = JSON.parse(data)
 
         let relevantData = {
             name: data.name,
@@ -52,31 +52,31 @@ function sendStoredCurrentWeather(socket) {
             max: Math.round(data.main.temp_max),
             sunrise: data.sys.sunrise,
             sunset: data.sys.sunset
-        };
+        }
 
-        socket.emit('current_weather', relevantData);
+        socket.emit('current_weather', relevantData)
     } catch (err) {
-        console.error(err);
+        console.error(err)
     }
 }
 
 function getWeatherForecastData(cityID, apiKey, lang = "de", unit = 'metric') {
     request('https://api.openweathermap.org/data/2.5/forecast/daily?id=' + cityID + '&appid=' + apiKey + '&cnt=5&lang=' + lang + '&units=' + unit, { json: true }, (err, res, body) => {
-        if (err) { console.log(err); }
+        if (err) { console.log(err) }
 
-        // add time stamp to data
-        body.timestamp = Date.now();
+        // Add time stamp to data
+        body.timestamp = Date.now()
 
-        // broadcast
-        broadcastWeatherForecast(body);
+        // Broadcast
+        broadcastWeatherForecast(body)
 
         // Save current api call to file
         try {
             fs.writeFileSync('./current_data/weather_forecast.json', JSON.stringify(body))
         } catch (err) {
-            console.error(err);
+            console.error(err)
         }
-    });
+    })
 }
 
 function broadcastWeatherForecast(data) {
@@ -121,18 +121,18 @@ function broadcastWeatherForecast(data) {
             icon: data.list[4].weather[0].icon,
             description: data.list[0].weather[0].description,
         }
-    ];
+    ]
 
-    // sends current weather data to all sockets
-    io.sockets.emit('weather_forecast', relevantData);
-    console.log("[" + new Date().toISOString() + "] " + "Broadcast weather forecast");
+    // Sends current weather data to all sockets
+    io.sockets.emit('weather_forecast', relevantData)
+    console.log("[" + new Date().toISOString() + "] " + "Broadcast weather forecast")
 }
 
 function sendStoredWeatherForecast(socket) {
     // Read weather data from file
     try {
-        let data = fs.readFileSync('./current_data/weather_forecast.json');
-        data = JSON.parse(data);
+        let data = fs.readFileSync('./current_data/weather_forecast.json')
+        data = JSON.parse(data)
 
         let relevantData = [
             // day 1
@@ -175,11 +175,11 @@ function sendStoredWeatherForecast(socket) {
                 icon: data.list[4].weather[0].icon,
                 description: data.list[0].weather[0].description,
             }
-        ];
+        ]
 
-        socket.emit('weather_forecast', relevantData);
+        socket.emit('weather_forecast', relevantData)
     } catch (err) {
-        console.error(err);
+        console.error(err)
     }
 }
 
@@ -188,4 +188,4 @@ module.exports = {
     sendStoredCurrentWeather,
     getWeatherForecastData,
     sendStoredWeatherForecast
-};
+}
