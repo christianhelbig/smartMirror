@@ -1,0 +1,19 @@
+{
+  "data": [
+    {
+      "title": "This is a boring chore",
+      "date_created": "March 31, 2020 at 11:08AM",
+      "priority": "None"
+    },
+    {
+      "title": "This chore is even worse",
+      "date_created": "March 31, 2020 at 11:08AM",
+      "priority": "None"
+    },
+    {
+      "title": "Oh man, who creates these?",
+      "date_created": "March 31, 2020 at 11:08AM",
+      "priority": "None"
+    }
+  ]
+}

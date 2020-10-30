@@ -46,6 +46,17 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(express.static('webfiles'))
 
+app.get('/reminders_data_example.json', function (req, res) {
+    // send example data of reminders
+    try {
+        let data = fs.readFileSync('./reminders_data_example.json')
+        data = JSON.parse(data)
+        res.send(data)
+    } catch (err) {
+        console.error(err)
+    }
+})
+
 app.get('/', function (req, res) {
     res.redirect('main.html')
 })

@@ -7,6 +7,17 @@ const fs = require('fs')
  * I create, complete or delete an item, it stores/deletes the item in a json file.
  * This module retrieves the data from the webserver.
  *
+ * The json looks like this:
+ * {
+ *  "data": [
+ *    {
+ *      "title": "This is a boring chore",
+ *      "date_created": "March 31, 2020 at 11:08AM",
+ *      "priority": "None"
+ *    }
+ *  ]
+ * }
+ *
  * TODO: Connect directly to iCloud and retrieve data
  *
  * @param url
