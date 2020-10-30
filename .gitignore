@@ -1,3 +1,6 @@
 current_data/*
 .idea
-default.config.js
+.DS_Store
+config.js
+node_modules/
+package-lock.json
