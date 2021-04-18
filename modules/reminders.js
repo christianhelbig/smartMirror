@@ -33,6 +33,9 @@ function getRemindersData(url, socket = null) {
 
         // Save current response to file
         try {
+            // create folder if not exist and store data
+            if (!fs.existsSync('./current_data')) fs.mkdirSync('./current_data')
+            
             fs.writeFileSync('./current_data/reminders_data.json', JSON.stringify(body))
         } catch (err) {
             console.error(err)

@@ -31,7 +31,8 @@ function receiveData(req, res) {
         sensorData.push(req.body)
     }
 
-    // Write file
+    // Write file - create folder if not exist
+    if (!fs.existsSync('./current_data')) fs.mkdirSync('./current_data')
     fs.writeFileSync(data_filepath, JSON.stringify(sensorData), function (err) {
         if (err) {
             res.status(500).end()

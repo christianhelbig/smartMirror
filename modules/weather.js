@@ -13,6 +13,9 @@ function getCurrentWeatherData(cityID, apiKey, lang = "de", unit = 'metric') {
 
         // Save current response to file
         try {
+            // create folder if not exist
+            if (!fs.existsSync('./current_data')) fs.mkdirSync('./current_data')
+
             fs.writeFileSync('./current_data/current_weather.json', JSON.stringify(body))
         } catch (err) {
             console.error(err)
@@ -72,6 +75,9 @@ function getWeatherForecastData(cityID, apiKey, lang = "de", unit = 'metric') {
 
         // Save current api call to file
         try {
+            // create folder if not exist
+            if (!fs.existsSync('./current_data')) fs.mkdirSync('./current_data')
+
             fs.writeFileSync('./current_data/weather_forecast.json', JSON.stringify(body))
         } catch (err) {
             console.error(err)

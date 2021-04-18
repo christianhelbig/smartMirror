@@ -39,7 +39,9 @@ function getCalendarData(url, socket = null) {
 
             result.sort(sortByDate)
 
-            // Store data in local file
+            // Store data in local file - create folder if not exist
+            if (!fs.existsSync('./current_data')) fs.mkdirSync('./current_data')
+
             fs.writeFileSync('./current_data/calendar_data.json', JSON.stringify(result))
 
             // Broadcast data
@@ -66,6 +68,8 @@ function broadcastCalendarData(data, socket = null) {
 
 // Read calendar data from file
 function sendStoredCalendarData(socket) {
+    let path = './current_data/calendar_data.json'
+
     try {
         let data = fs.readFileSync('./current_data/calendar_data.json')
         data = JSON.parse(data)
