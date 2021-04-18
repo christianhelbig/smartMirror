@@ -82,6 +82,10 @@ io.on('connection', function(socket){
     })
 })
 
+io.on('sensor_data', function(socket){
+    console.log(socket)
+})
+
 // Request current data
 weather.getCurrentWeatherData(settings.weather.cityID, settings.weather.apiKey, settings.weather.lang, settings.weather.unit)
 weather.getWeatherForecastData(settings.weather.cityID, settings.weather.apiKey, settings.weather.lang, settings.weather.unit)

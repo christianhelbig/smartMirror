@@ -3,7 +3,7 @@ const fs = require('fs')
 
 function getCurrentWeatherData(cityID, apiKey, lang = "de", unit = 'metric') {
     request('https://api.openweathermap.org/data/2.5/weather?id=' + cityID + '&appid=' + apiKey + '&lang=' + lang + '&units=' + unit, { json: true }, (err, res, body) => {
-        if (err) { console.log(err) }
+        if (err) { console.log(err)}
 
         // Add time stamp to data
         body.timestamp = Date.now()

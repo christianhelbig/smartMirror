@@ -11,7 +11,7 @@
     "url": "git+https://github.com/christianhelbig/smartMirror.git"
   },
   "author": "Christian Helbig",
-  "license": "ISC",
+  "license": "GNU",
   "bugs": {
     "url": "https://github.com/christianhelbig/smartMirror/issues"
   },
